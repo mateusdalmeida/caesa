@@ -14,10 +14,10 @@ class Debito {
 
   factory Debito.fromJson(Map<String, dynamic> json) {
     return Debito(
-        refFaturamento: json['refFaturamento'],
-        dataVencimento: json['dataVencimento'],
-        valorTotal: json['valorTotal'],
-        volume: json['volume'],
-        origem: json['origem']);
+        refFaturamento: json['REF_FATUR'],
+        dataVencimento: json['DATA_VENCIMENTO'],
+        valorTotal: json['VALOR_TOTAL'],
+        volume: json['VOL_FATURADO'],
+        origem: json['ORIGEM']);
   }
 }

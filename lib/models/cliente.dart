@@ -1,29 +1,32 @@
 class Cliente {
   int inscricao;
   String nome;
-  String complemento;
+  String numeroPorta;
   int categoria;
   int idLogradouro;
   int cidade;
-  String cpf;
+  //tirei pq o dado nunca é armazenado
+  //String cpf;
 
   Cliente(
       {this.inscricao,
       this.nome,
-      this.complemento,
+      this.numeroPorta,
       this.categoria,
       this.idLogradouro,
       this.cidade,
-      this.cpf});
+      //this.cpf
+      });
 
   factory Cliente.fromJson(Map<String, dynamic> json) {
     return Cliente(
-        inscricao: json['inscricao'],
-        nome: json['nome'],
-        complemento: json['complemento'],
-        categoria: json['categoria'],
-        idLogradouro: json['idLogradouro'],
-        cidade: json['cidade'],
-        cpf: json['cpf']);
+        inscricao: json['INSCRICAO'],
+        nome: json['NOME'],
+        numeroPorta: json['COMPLEMENTO'],
+        categoria: json['CDG_CATEGORIA'],
+        idLogradouro: json['CDG_LOGRA'],
+        cidade: json['CDG_CIDADE'],
+        //cpf: json['cpf']
+        );
   }
 }

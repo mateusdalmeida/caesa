@@ -1,12 +1,16 @@
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
+import 'dart:async';
+
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 
+//const baseUrl = 'http://192.168.0.1/';
+
 List<Cliente> getCliente(){
   List<Cliente> clientes = new List();
-  clientes.add(Cliente(inscricao: 25, nome: "Anderson", complemento: "Teste", categoria: 30, idLogradouro: 12, cidade: 32, cpf: "dsadsadsa"));
-  clientes.add(Cliente(inscricao: 25, nome: "Anderson", complemento: "Teste", categoria: 30, idLogradouro: 12, cidade: 32, cpf: "dsadsadsa"));
-  clientes.add(Cliente(inscricao: 25, nome: "Anderson", complemento: "Teste", categoria: 30, idLogradouro: 12, cidade: 32, cpf: "dsadsadsa"));
-  clientes.add(Cliente(inscricao: 25, nome: "Anderson", complemento: "Teste", categoria: 30, idLogradouro: 12, cidade: 32, cpf: "dsadsadsa"));
+  clientes.add(Cliente(inscricao: 25, nome: "Anderson", numeroPorta: "Teste", categoria: 30, idLogradouro: 12, cidade: 32));
   return clientes;
 }
 
@@ -17,8 +21,23 @@ List<Debito> getDebito(){
   return debitos;
 }
 
-//  int refFaturamento;
-//   int dataVencimento;
-//   double valorTotal;
-//   double volume;
-//   int origem;
+
+// Future<List<Cliente>> getClientes(int inscricao) async {
+//   final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
+//   List<Cliente> cliente = new List();
+
+//   cliente.add(Cliente(inscricao: 25, nome: "Anderson", numeroPorta: "305", categoria: 02, idLogradouro: 12, cidade: 201));
+
+
+//   if (response.statusCode == 200) {
+//     var responseJson = json.decode(response.body);
+//     for (var despesa in responseJson['data']) {
+//       Cliente des = Cliente.fromJson(despesa);
+//       cliente.add(des);
+//     }
+//     return cliente;
+//   } else {
+//     print("${response.statusCode}");
+//     return cliente;
+//   }
+// }
