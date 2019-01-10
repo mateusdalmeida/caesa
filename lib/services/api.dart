@@ -22,22 +22,29 @@ List<Debito> getDebito(){
 }
 
 
-// Future<List<Cliente>> getClientes(int inscricao) async {
-//   final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
-//   List<Cliente> cliente = new List();
+Future<List<Cliente>> getClientes(int inscricao) async {
+  //final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
+  List<Cliente> clientes = new List();
 
-//   cliente.add(Cliente(inscricao: 25, nome: "Anderson", numeroPorta: "305", categoria: 02, idLogradouro: 12, cidade: 201));
+  clientes.add(Cliente(inscricao: 25, nome: "Anderson", numeroPorta: "305", categoria: 02, idLogradouro: 12, cidade: 201));
 
+  dynamic test = await Future.delayed(Duration(seconds: 15), (){
+    return clientes;
+  });
 
-//   if (response.statusCode == 200) {
-//     var responseJson = json.decode(response.body);
-//     for (var despesa in responseJson['data']) {
-//       Cliente des = Cliente.fromJson(despesa);
-//       cliente.add(des);
-//     }
-//     return cliente;
-//   } else {
-//     print("${response.statusCode}");
-//     return cliente;
-//   }
-// }
+  
+
+  return test;
+
+  // if (response.statusCode == 200) {
+  //   var responseJson = json.decode(response.body);
+  //   for (var despesa in responseJson['data']) {
+  //     Cliente des = Cliente.fromJson(despesa);
+  //     cliente.add(des);
+  //   }
+  //   return cliente;
+  // } else {
+  //   print("${response.statusCode}");
+  //   return cliente;
+  // }
+}
