@@ -5,8 +5,6 @@ class Cliente {
   int categoria;
   int idLogradouro;
   int cidade;
-  //tirei pq o dado nunca é armazenado
-  //String cpf;
 
   Cliente(
       {this.inscricao,
@@ -15,7 +13,6 @@ class Cliente {
       this.categoria,
       this.idLogradouro,
       this.cidade,
-      //this.cpf
       });
 
   factory Cliente.fromJson(Map<String, dynamic> json) {
@@ -26,7 +23,6 @@ class Cliente {
         categoria: json['CDG_CATEGORIA'],
         idLogradouro: json['CDG_LOGRA'],
         cidade: json['CDG_CIDADE'],
-        //cpf: json['cpf']
         );
   }
 }

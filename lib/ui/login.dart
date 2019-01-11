@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:caesa/services/api.dart' as api;
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -8,20 +9,24 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   TabController _tabController;
-  int controller = 0;
+  var cpfController = MaskedTextController(
+    mask: '000.000.000-00',
+  );
+  int tabIndex = 0;
+  bool tabColor = true;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController =
-        new TabController(vsync: this, length: 2, initialIndex: controller);
+        new TabController(vsync: this, length: 2, initialIndex: tabIndex);
 
     // Chama a tela de "aguardar"
-    api.getClientes(123).then((result) {
+    api.getClientes().then((result) {
       // repara que aqui eu não utilizei o await, porque a função initState não pode ser async
       // por isso usei .then (parecido com o js da vida)
-      print(result[0].nome);
+      //print(result[0].nome);
       setState(() {
         // Após o delay, dispensa a tela de "aguardar"
         _isLoading = false;
@@ -68,15 +73,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
-                                        color: controller == 0
-                                            ? Colors.grey[200]
+                                        color: tabColor
+                                            ? Colors.grey
                                             : Colors.blue,
                                         width: 2))),
                           ),
                           onTap: () {
                             _tabController.animateTo(0);
                             setState(() {
-                              controller = 1;
+                              tabColor = false;
                             });
                           },
                         ),
@@ -94,15 +99,15 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             decoration: BoxDecoration(
                                 border: Border(
                                     bottom: BorderSide(
-                                        color: controller == 0
+                                        color: tabColor
                                             ? Colors.blue
-                                            : Colors.grey[200],
+                                            : Colors.grey,
                                         width: 2))),
                           ),
                           onTap: () {
                             _tabController.animateTo(1);
                             setState(() {
-                              controller = 0;
+                              tabColor = true;
                             });
                           },
                         ),
@@ -115,30 +120,75 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     // Restrict scroll by user
                     physics: const NeverScrollableScrollPhysics(),
                     children: <Widget>[
+                      //login por matricula
                       Form(
-                        child: TextFormField(
-                          autofocus: true,
-                          decoration: InputDecoration(
-                              hintText: "Insira sua Matricula aqui",
-                              labelText: "Matricula"),
-                        ),
-                      ),
+                          child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 10),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 8,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      hintText: "Matricula",
+                                      labelText: "Insira sua Matricula aqui"),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Expanded(
+                                flex: 2,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      hintText: "DV", labelText: "DV"),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 15),
+                          MaterialButton(
+                            color: Colors.blue,
+                            padding: EdgeInsets.all(15),
+                            minWidth: double.infinity,
+                            child: Text(
+                              "Entrar",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            onPressed: () {},
+                          )
+                        ],
+                      )),
+                      //login por cpf
                       Form(
-                        child: TextFormField(
-                          autofocus: true,
-                          decoration: InputDecoration(
-                              hintText: "Insira seu CPF Aqui",
-                              labelText: "CPF"),
-                        ),
-                      ),
+                          child: Column(
+                        children: <Widget>[
+                          SizedBox(height: 10),
+                          TextFormField(
+                            keyboardType: TextInputType.number,
+                            controller: cpfController,
+                            decoration: InputDecoration(
+                                hintText: "CPF",
+                                labelText: "Insira seu CPF aqui"),
+                          ),
+                          SizedBox(height: 15),
+                          MaterialButton(
+                            color: Colors.blue,
+                            padding: EdgeInsets.all(15),
+                            minWidth: double.infinity,
+                            child: Text(
+                              "Entrar",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            onPressed: () {},
+                          )
+                        ],
+                      )),
                     ],
                   )),
-                  Expanded(
-                    child: RaisedButton(
-                      child: Text("Entrar"),
-                      onPressed: () {},
-                    ),
-                  )
                 ],
               ),
             ),

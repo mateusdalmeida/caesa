@@ -6,39 +6,14 @@ import 'dart:async';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 
-//const baseUrl = 'http://192.168.0.1/';
+const baseUrl = 'http://192.168.0.1/';
 
-List<Cliente> getCliente() {
-  List<Cliente> clientes = new List();
-  clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "Teste",
-      categoria: 30,
-      idLogradouro: 12,
-      cidade: 32));
-  return clientes;
-}
+Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
+  // if(inscricao != null)
+  //   final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
+  // else if (cpf != null)
+  //   final response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
 
-List<Debito> getDebito() {
-  List<Debito> debitos = new List();
-  debitos.add(Debito(
-      refFaturamento: 12,
-      dataVencimento: 203,
-      valorTotal: 13.5,
-      volume: 26.9,
-      origem: 95));
-  debitos.add(Debito(
-      refFaturamento: 12,
-      dataVencimento: 203,
-      valorTotal: 13.5,
-      volume: 26.9,
-      origem: 95));
-  return debitos;
-}
-
-Future<List<Cliente>> getClientes(int inscricao) async {
-  //final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
   List<Cliente> clientes = new List();
 
   clientes.add(Cliente(
@@ -49,20 +24,31 @@ Future<List<Cliente>> getClientes(int inscricao) async {
       idLogradouro: 12,
       cidade: 201));
 
-  print("antes do await");
   await Future.delayed(Duration(seconds: 5));
-  print("apos await");
   return clientes;
 
   // if (response.statusCode == 200) {
   //   var responseJson = json.decode(response.body);
   //   for (var despesa in responseJson['data']) {
   //     Cliente des = Cliente.fromJson(despesa);
-  //     cliente.add(des);
+  //     clientes.add(des);
   //   }
-  //   return cliente;
+  //   return clientes;
   // } else {
   //   print("${response.statusCode}");
-  //   return cliente;
+  //   return clientes;
   // }
+}
+
+Future<List<Debito>> getDebito(int inscricao) async {
+  List<Debito> debitos = new List();
+  debitos.add(Debito(
+      refFaturamento: 12,
+      dataVencimento: 203,
+      valorTotal: 13.5,
+      volume: 26.9,
+      origem: 95));
+
+  await Future.delayed(Duration(seconds: 5));
+  return debitos;
 }
