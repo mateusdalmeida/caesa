@@ -24,6 +24,117 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
       idLogradouro: 12,
       cidade: 201));
 
+    clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+    clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+   
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+      clientes.add(Cliente(
+      inscricao: 25,
+      nome: "Anderson",
+      numeroPorta: "305",
+      categoria: 02,
+      idLogradouro: 12,
+      cidade: 201));
+
   await Future.delayed(Duration(seconds: 5));
   return clientes;
 
