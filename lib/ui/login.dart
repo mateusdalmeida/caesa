@@ -4,6 +4,7 @@ import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:cpf_cnpj_validator/cpf_validator.dart';
 
 import 'package:caesa/ui/matriculas.dart';
+import 'package:caesa/ui/matriculaController.dart';
 import 'package:caesa/models/cliente.dart';
 
 class Login extends StatefulWidget {
@@ -29,6 +30,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   TabController _tabController;
   int tabIndex = 0;
   bool tabColor = true;
+
   //VALIDACAO CPF
   GlobalKey<FormState> _cpfKey = GlobalKey<FormState>();
   var cpfController = MaskedTextController(mask: '000.000.000-00');
@@ -40,6 +42,30 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   //Validacao Matricula
   GlobalKey<FormState> _matriculaKey = GlobalKey<FormState>();
+  var matriculaController = MatriculaController();
+  bool matriculaIsValid = false;
+  String matriculaLimpa;
+  void _validarMatricula(String text) {
+    matriculaIsValid = false;
+    String matricula = text.split('-')[0];
+    //print("matricula $matricula");
+    String dv = text.split('-')[1];
+    //print("dv $dv");
+    int dvCorreto = _mod11(matricula);
+    //print("correto $dvCorreto");
+    if (int.parse(dv) == dvCorreto) {
+      matriculaIsValid = true;
+      matriculaLimpa = matricula;
+    }
+  }
+  // refatorada
+  // void _validarMatricula(String text) {
+  //   matriculaIsValid = false;
+  //   if (int.parse(text.split('-')[1]) == _mod11(text.split('-')[0])) {
+  //     matriculaIsValid = true;
+  //     matriculaLimpa = text.split('-')[0];
+  //   }
+  // }
 
   @override
   void initState() {
@@ -135,27 +161,23 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         SizedBox(height: 10),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 8,
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    hintText: "Matricula",
-                                    labelText: "Insira sua Matricula aqui"),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            Expanded(
-                              flex: 2,
-                              child: TextFormField(
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    hintText: "DV", labelText: "DV"),
-                              ),
-                            ),
-                          ],
+                        TextFormField(
+                          controller: matriculaController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              hintText: "Matricula",
+                              labelText: "Insira sua Matricula aqui"),
+                          validator: (value) {
+                            if (value.isNotEmpty) {
+                              if (value.length > 4) {
+                                _validarMatricula(value);
+                                if (matriculaIsValid == false)
+                                  return "DV Invalido";
+                              } else {
+                                return "Informe uma matricula";
+                              }
+                            }
+                          },
                         ),
                         SizedBox(height: 15),
                         FlatButton(
@@ -165,7 +187,24 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             "Entrar",
                             style: TextStyle(color: Colors.white, fontSize: 15),
                           ),
-                          onPressed: () {},
+                          onPressed: () async {
+                            if (_matriculaKey.currentState.validate()) {
+                              _loadingDialog();
+                              List<Cliente> user = await api.getClientes(
+                                  inscricao: int.parse(matriculaLimpa));
+                              if (user != null) {
+                                Navigator.of(context).pop();
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Matriculas(user)));
+                              } else {
+                                Navigator.of(context).pop();
+                                _showAvisoLogin();
+                              }
+                            }
+                          },
                         )
                       ],
                     )),
