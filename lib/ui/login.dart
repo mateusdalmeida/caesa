@@ -29,7 +29,6 @@ int _mod11(String matricula) {
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   TabController _tabController;
   int tabIndex = 0;
-  bool tabColor = true;
 
   //VALIDACAO CPF
   GlobalKey<FormState> _cpfKey = GlobalKey<FormState>();
@@ -76,6 +75,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    print(_tabController.index);
     return Scaffold(
       appBar: AppBar(
         title: Text("CAESA - 2ª via"),
@@ -109,14 +109,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: tabColor ? Colors.grey : Colors.blue,
+                                  color: _tabController.index == 0 ? Colors.blue : Colors.grey,
                                   width: 2))),
                     ),
                     onTap: () {
                       _tabController.animateTo(0);
-                      setState(() {
-                        tabColor = false;
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
@@ -133,14 +131,12 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: tabColor ? Colors.blue : Colors.grey,
+                                  color: _tabController.index == 1 ? Colors.blue : Colors.grey,
                                   width: 2))),
                     ),
                     onTap: () {
                       _tabController.animateTo(1);
-                      setState(() {
-                        tabColor = true;
-                      });
+                      setState(() {});
                     },
                   ),
                 ),
