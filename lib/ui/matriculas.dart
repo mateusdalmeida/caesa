@@ -7,12 +7,30 @@ class Matriculas extends StatefulWidget {
 
   List<Cliente> matriculas;
 
+  // aqui tu obriga o construtor a ter o parametro matricula, tudo okay
   Matriculas(this.matriculas);
 
   _MatriculasState createState() => _MatriculasState();
 }
 
 class _MatriculasState extends State<Matriculas> {
+
+  // essa é uma classe diferente da de cima, então é necessário declarar aqui também
+  List<Cliente> matriculas;
+
+  @override
+    void initState() {
+      // TODO: implement initState
+      super.initState();
+      // na inicialização do widget eu pego o valor da matricula da classe de cima com widget.matriculas
+      // o widget. é usado pra pegar os valores da classe que extende statefulwidget
+      matriculas = widget.matriculas;
+      print(matriculas.length);
+      for (var matricula in matriculas){
+        print(matricula.nome);
+      }
+    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,19 +38,8 @@ class _MatriculasState extends State<Matriculas> {
         title: Text("CAESA - Matriculas"),
         centerTitle: true,
       ),
-      body: FutureBuilder(
-        future: api.getClientes(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return _createMatriculasList(context, snapshot.data);
-          } else if (snapshot.hasError) {
-            return Text(snapshot.error);
-          }
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+      // nao faz sentido ter um futurebuilder aqui, a requisição é a mesma utilizada na tela anterior
+      body: _createMatriculasList(context, matriculas),
     );
   }
 }
