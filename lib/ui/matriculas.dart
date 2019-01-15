@@ -25,10 +25,6 @@ class _MatriculasState extends State<Matriculas> {
       // na inicialização do widget eu pego o valor da matricula da classe de cima com widget.matriculas
       // o widget. é usado pra pegar os valores da classe que extende statefulwidget
       matriculas = widget.matriculas;
-      print(matriculas.length);
-      for (var matricula in matriculas){
-        print(matricula.nome);
-      }
     }
 
   @override
