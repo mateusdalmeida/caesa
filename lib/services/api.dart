@@ -6,149 +6,39 @@ import 'dart:async';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 
-const baseUrl = 'http://192.168.0.1/';
+const baseUrl = 'http://localhost:3000/';
 
 Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
-  // if(inscricao != null)
-  //   final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
-  // else if (cpf != null)
-  //   final response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
+  var response;
+  if(inscricao != null)
+    response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
+   else if (cpf != null)
+    response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
 
   List<Cliente> clientes = new List();
 
-  clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
+  // clientes.add(Cliente(
+  //     inscricao: 25,
+  //     nome: "Anderson",
+  //     numeroPorta: "305",
+  //     categoria: 02,
+  //     idLogradouro: 12,
+  //     cidade: 201));
 
-    clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-    clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-   
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
-      clientes.add(Cliente(
-      inscricao: 25,
-      nome: "Anderson",
-      numeroPorta: "305",
-      categoria: 02,
-      idLogradouro: 12,
-      cidade: 201));
+  // await Future.delayed(Duration(seconds: 5));
+  // return clientes;
 
-  await Future.delayed(Duration(seconds: 5));
-  return clientes;
-
-  // if (response.statusCode == 200) {
-  //   var responseJson = json.decode(response.body);
-  //   for (var despesa in responseJson['data']) {
-  //     Cliente des = Cliente.fromJson(despesa);
-  //     clientes.add(des);
-  //   }
-  //   return clientes;
-  // } else {
-  //   print("${response.statusCode}");
-  //   return clientes;
-  // }
+  if (response.statusCode == 200) {
+    var responseJson = json.decode(response.body);
+    for (var despesa in responseJson['data']) {
+      Cliente des = Cliente.fromJson(despesa);
+      clientes.add(des);
+    }
+    return clientes;
+  } else {
+    print("${response.statusCode}");
+    return clientes;
+  }
 }
 
 Future<List<Debito>> getDebito(int inscricao) async {

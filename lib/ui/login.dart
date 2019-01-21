@@ -243,7 +243,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   cpf: CPFValidator.strip(cpfController.text));
                               if (user != null) {
                                 Navigator.of(context).pop();
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>
