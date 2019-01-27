@@ -42,6 +42,8 @@ class Cliente {
       case 579:
         json['CDG_CIDADE'] = 'Santana';
         break;
+      default:
+        json['CDG_CIDADE'] = json['CDG_CIDADE'].toString();
     }
 
     return Cliente(
