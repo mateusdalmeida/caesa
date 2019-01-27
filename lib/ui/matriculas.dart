@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-//mport 'package:caesa/services/api.dart' as api;
+import 'package:caesa/ui/faturas.dart';
+import 'package:caesa/services/api.dart' as api;
 import 'package:caesa/models/cliente.dart';
 
 class Matriculas extends StatefulWidget {
@@ -64,6 +64,12 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
             subtitle: Text(
                 "${clientes[index].idLogradouro}\n${clientes[index].categoria}"),
             isThreeLine: true,
+            onTap: () async {
+              var debitos = await api.getDebitos(clientes[index].inscricao);
+              if (debitos.length > 0) {
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Faturas(debitos)));
+              }
+            },
           ));
         },
         separatorBuilder: (context, index) {

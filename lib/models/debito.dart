@@ -1,8 +1,8 @@
 class Debito {
   int refFaturamento;
   int dataVencimento;
-  double valorTotal;
-  double volume;
+  var valorTotal;
+  int volume;
   int origem;
 
   Debito(

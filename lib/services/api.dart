@@ -51,7 +51,7 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
   }
 }
 
-Future<List<Debito>> getFaturas(matricula) async {
+Future<List<Debito>> getDebitos(matricula) async {
   var response = await http.get("$baseUrl/debitos/dados/$matricula"); 
   
   List<Debito> debitos = new List();
@@ -60,7 +60,7 @@ Future<List<Debito>> getFaturas(matricula) async {
     var responseJson = json.decode(response.body);
     for (var debito in responseJson){
       Debito debt = Debito.fromJson(debito);
-      debitos.add(debito);
+      debitos.add(debt);
     }
     return debitos;
   }else {
@@ -68,17 +68,4 @@ Future<List<Debito>> getFaturas(matricula) async {
     return debitos;
   }
 
-}
-
-Future<List<Debito>> getDebito(int inscricao) async {
-  List<Debito> debitos = new List();
-  debitos.add(Debito(
-      refFaturamento: 12,
-      dataVencimento: 203,
-      valorTotal: 13.5,
-      volume: 26.9,
-      origem: 95));
-
-  await Future.delayed(Duration(seconds: 5));
-  return debitos;
 }
