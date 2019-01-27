@@ -31,8 +31,13 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
 
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
+    print(responseJson);
     for (var despesa in responseJson) {
       Cliente des = Cliente.fromJson(despesa);
+      String urlDadosEndereco = "$baseUrl/logradouro/dados/${des.inscricao}";
+      var responseDados = await http.get(urlDadosEndereco);
+      var responseDadosJson = json.decode(responseDados.body);      
+      print(responseDadosJson);
       clientes.add(des);
     }
     return clientes;
