@@ -62,7 +62,7 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
               child: ListTile(
             title: Text("Matricula: ${clientes[index].inscricao}"),
             subtitle: Text(
-                "${clientes[index].idLogradouro}\n${clientes[index].categoria}"),
+                "${clientes[index].endereco}, ${clientes[index].numeroPorta} \n${clientes[index].categoria}"),
             isThreeLine: true,
             onTap: () async {
               var debitos = await api.getDebitos(clientes[index].inscricao);

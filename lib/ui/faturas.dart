@@ -46,7 +46,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Text(
-          "Suas Faturas\nMatricula:",
+          "Suas Faturas",
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -62,6 +62,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
             subtitle: Text(
                 "Vencimento: ${debitos[index].dataVencimento}\nR\$ ${debitos[index].valorTotal}"),
             isThreeLine: true,
+            trailing: Text("Pago"),
           ));
         },
         separatorBuilder: (context, index) {
