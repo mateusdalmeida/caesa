@@ -6,15 +6,16 @@ import 'dart:async';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 
-const baseUrl = 'http://localhost:3000/';
+const baseUrl = 'http://192.168.2.203:3000/';
 
 Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
-  var response;
-  if(inscricao != null)
-    response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao");
-   else if (cpf != null)
-    response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
+  //var response;
+  //if(inscricao != null)
+    final response = await http.get("$baseUrl/api/cliente/matricula/dados/$inscricao"); 
+   //else if (cpf != null)
+    //response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
 
+  print(response);
   List<Cliente> clientes = new List();
 
   // clientes.add(Cliente(
