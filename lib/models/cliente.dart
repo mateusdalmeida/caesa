@@ -5,6 +5,7 @@ class Cliente {
   String categoria;
   int idLogradouro;
   String cidade;
+  String endereco;
 
   Cliente(
       {this.inscricao,
@@ -13,6 +14,7 @@ class Cliente {
       this.categoria,
       this.idLogradouro,
       this.cidade,
+      this.endereco
       });
 
   factory Cliente.fromJson(Map<String, dynamic> json) {

@@ -38,6 +38,10 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
       var responseDados = await http.get(urlDadosEndereco);
       var responseDadosJson = json.decode(responseDados.body);      
       print(responseDadosJson);
+      des.endereco = responseDadosJson[0]['NOME'];
+      //matriculasPegas[matricula].CDG_CATEGORIA = resultJson[0].CDG_CATEGORIA
+      //matriculasPegas[matricula].COMPLEMENTO = resultJson[0].COMPLEMENTO
+      //matriculasPegas[matricula].CDG_CIDADE = resultJson[0].CDG_CIDADE
       clientes.add(des);
     }
     return clientes;
@@ -45,6 +49,25 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
     print("${response.statusCode}");
     return clientes;
   }
+}
+
+Future<List<Debito>> getFaturas(matricula) async {
+  var response = await http.get("$baseUrl/debitos/dados/$matricula"); 
+  
+  List<Debito> debitos = new List();
+
+  if (response.statusCode == 200){
+    var responseJson = json.decode(response.body);
+    for (var debito in responseJson){
+      Debito debt = Debito.fromJson(debito);
+      debitos.add(debito);
+    }
+    return debitos;
+  }else {
+    print(response.statusCode);
+    return debitos;
+  }
+
 }
 
 Future<List<Debito>> getDebito(int inscricao) async {
