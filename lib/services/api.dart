@@ -13,7 +13,7 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
   if(inscricao != null)
     response = await http.get("$baseUrl/cliente/matricula/dados/$inscricao"); 
    else if (cpf != null)
-    response = await http.get("$baseUrl/api/cliente/cpf/dados/$cpf");
+    response = await http.get("$baseUrl/cliente/cpf/dados/$cpf");
 
   print(response);
   List<Cliente> clientes = new List();
@@ -31,7 +31,7 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
 
   if (response.statusCode == 200) {
     var responseJson = json.decode(response.body);
-    for (var despesa in responseJson['data']) {
+    for (var despesa in responseJson) {
       Cliente des = Cliente.fromJson(despesa);
       clientes.add(des);
     }
