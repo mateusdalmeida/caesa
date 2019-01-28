@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 //mport 'package:caesa/services/api.dart' as api;
 import 'package:caesa/models/debito.dart';
+import 'package:caesa/ui/fatura.dart';
 
 class Faturas extends StatefulWidget {
   List<Debito> debitos;
@@ -71,7 +72,10 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
               ),
               
               child: Text("${debitos[index].status}"),
-            )
+            ),
+            onTap:() {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Fatura(debitos)));
+            },
           ));
         },
         separatorBuilder: (context, index) {
