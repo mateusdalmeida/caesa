@@ -46,7 +46,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
       Padding(
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Text(
-          "Suas Faturas",
+          "Suas Faturas\nMatricula: ${debitos[0].inscricao}",
           textAlign: TextAlign.left,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
@@ -58,11 +58,20 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
         itemBuilder: (context, index) {
           return GestureDetector(
             child: ListTile(
-            title: Text("Matricula: ${debitos[index].refFaturamento}"),
+            title: Text("${debitos[index].refFaturamento}"),
             subtitle: Text(
                 "Vencimento: ${debitos[index].dataVencimento}\nR\$ ${debitos[index].valorTotal}"),
             isThreeLine: true,
-            trailing: Text("Pago"),
+            trailing: Container(
+              padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+              decoration: BoxDecoration(
+                color: debitos[index].status == "Pagar" ? Colors.yellow : debitos[index].status == "Pago"? Colors.green : Colors.red,
+                borderRadius: BorderRadius.circular(50)
+                
+              ),
+              
+              child: Text("${debitos[index].status}"),
+            )
           ));
         },
         separatorBuilder: (context, index) {
