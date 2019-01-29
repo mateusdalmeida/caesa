@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 class MatriculaController extends TextEditingController {
   MatriculaController(
-      {double initialValue = 0,
+      {double initialValue,
       this.decimalSeparator = '',
       this.thousandSeparator = '-',
       this.rightSymbol = '',
@@ -85,6 +85,9 @@ class MatriculaController extends TextEditingController {
   }
 
   String _applyMask(double value) {
+    if (value == null){
+      return '';
+    }else{
     String textRepresentation =
         value.toStringAsFixed(2).replaceAll('.', this.decimalSeparator);
 
@@ -109,5 +112,6 @@ class MatriculaController extends TextEditingController {
     String numberText = numberParts.join('');
 
     return numberText;
+    }
   }
 }
