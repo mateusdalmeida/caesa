@@ -14,6 +14,8 @@ import 'package:caesa/functions/dialogs.dart';
 import 'package:caesa/functions/matriculaController.dart';
 import 'package:caesa/functions/mod11.dart';
 
+import 'package:caesa/functions/dateConvert.dart';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -201,7 +203,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         FlatButton(
                           child: Text("hm"),
                           onPressed: () {
-                            formataData();
+                            print(dateConvert("201810"));
+                            print(dateConvert("20190129"));
                           },
                         )
                       ],
@@ -265,42 +268,5 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  void formataData() {
-    // 201810 => Outubro 2018
-    // 20190129 => 29/01/2019
-    List meses = [
-      'janeiro',
-      'fevereiro',
-      'março',
-      'abril',
-      'maioi',
-      'junho',
-      'julho',
-      'agosto',
-      'setembro',
-      'outubro',
-      'novembro',
-      'dezembro'
-    ];
-    String dataAntiga1 = "201810";
-    String anoAntigo1 = dataAntiga1.substring(0, 4);
-    String mesAntigo1 = dataAntiga1.substring(4, 6);
-    print(dataAntiga1);
-    print(anoAntigo1);
-    print(mesAntigo1);
-    mesAntigo1 = (int.parse(mesAntigo1)-1).toString();
-    print("${meses[int.parse(mesAntigo1)]} $anoAntigo1");
-
-    String dataAntiga2 = "20190129";
-    String anoAntigo2 = dataAntiga2.substring(0, 4);
-    String mesAntigo2 = dataAntiga2.substring(4, 6);
-    String diaAntigo = dataAntiga2.substring(6, 8);
-    print(dataAntiga2);
-    print(anoAntigo2);
-    print(mesAntigo2);
-    print(diaAntigo);
-    print("$diaAntigo/$mesAntigo2/$anoAntigo2");
   }
 }
