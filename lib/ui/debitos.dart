@@ -4,16 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/ui/fatura.dart';
 
-class Faturas extends StatefulWidget {
+class Debitos extends StatefulWidget {
   List<Debito> debitos;
 
   // aqui tu obriga o construtor a ter o parametro matricula, tudo okay
-  Faturas(this.debitos);
+  Debitos(this.debitos);
 
-  _FaturasState createState() => _FaturasState();
+  _DebitosState createState() => _DebitosState();
 }
 
-class _FaturasState extends State<Faturas> {
+class _DebitosState extends State<Debitos> {
   // essa é uma classe diferente da de cima, então é necessário declarar aqui também
   List<Debito> debitos;
 

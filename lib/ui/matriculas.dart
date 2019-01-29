@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:caesa/ui/faturas.dart';
+import 'package:caesa/ui/debitos.dart';
 import 'package:caesa/services/api.dart' as api;
 import 'package:caesa/models/cliente.dart';
 
@@ -67,7 +67,7 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
             onTap: () async {
               var debitos = await api.getDebitos(clientes[index].inscricao);
               if (debitos.length > 0) {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Faturas(debitos)));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Debitos(debitos)));
               }
             },
           ));
