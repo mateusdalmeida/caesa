@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-//import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 
@@ -8,7 +7,14 @@ import 'package:caesa/models/cliente.dart';
 import 'package:caesa/models/pagamento.dart';
 
 const baseUrl = 'http://192.168.2.204:3000/api';
-int dataAtual = 20180101;
+
+var year = DateTime.now().year.toString();
+var month = DateTime.now().month.toString().padLeft(2, '0');
+var day = DateTime.now().day.toString().padLeft(2, '0');
+
+int dataAtual = int.parse("$year$month$day");
+
+//int dataAtual = 20180101;
 
 Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
   var response;
@@ -17,16 +23,7 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
    else if (cpf != null)
     response = await http.get("$baseUrl/cliente/cpf/dados/$cpf");
 
-  //print(response);
   List<Cliente> clientes = new List();
-
-  // clientes.add(Cliente(
-  //     inscricao: 25,
-  //     nome: "Anderson",
-  //     numeroPorta: "305",
-  //     categoria: 02,
-  //     idLogradouro: 12,
-  //     cidade: 201));
 
   // await Future.delayed(Duration(seconds: 5));
   // return clientes;
