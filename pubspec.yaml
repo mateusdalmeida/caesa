@@ -23,7 +23,6 @@ dependencies:
   flutter_masked_text: ^0.7.0
   cpf_cnpj_validator: ^1.0.4
 
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
