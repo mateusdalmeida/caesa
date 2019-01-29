@@ -1,5 +1,4 @@
 //ToDo
-//intl
 //receber dados sobre cliente
 //sncakbar codigo copiado
 //se pago não exibir os botoes
@@ -7,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/services/barcode.dart';
+import 'package:caesa/functions/dateConvert.dart';
 
 class Fatura extends StatefulWidget {
   Debito debitos;
@@ -28,7 +28,7 @@ class _FaturaState extends State<Fatura> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${debitos.refFaturamento}"),
+        title: Text(dateConvert(debitos.refFaturamento.toString())),
         centerTitle: true,
       ),
       body: ListView(
@@ -93,7 +93,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "${debitos.dataVencimento}",
+                dateConvert(debitos.dataVencimento.toString()),
                 style: TextStyle(fontSize: 18),
               ),
             ],

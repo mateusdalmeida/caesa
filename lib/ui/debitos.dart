@@ -1,10 +1,8 @@
-//ToDo
-//intl
-
 import 'package:flutter/material.dart';
 
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/ui/fatura.dart';
+import 'package:caesa/functions/dateConvert.dart';
 
 class Debitos extends StatefulWidget {
   List<Debito> debitos;
@@ -57,9 +55,9 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
         itemBuilder: (context, index) {
           return GestureDetector(
               child: ListTile(
-            title: Text("${debitos[index].refFaturamento}"),
+            title: Text(dateConvert(debitos[index].refFaturamento.toString())),
             subtitle: Text(
-                "Vencimento: ${debitos[index].dataVencimento}\nR\$ ${debitos[index].valorTotal.toStringAsFixed(2)}"),
+                "Vencimento: ${dateConvert(debitos[index].dataVencimento.toString())}\nR\$ ${debitos[index].valorTotal.toStringAsFixed(2)}"),
             isThreeLine: true,
             trailing: Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
@@ -70,7 +68,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
                           ? Colors.green
                           : Colors.red,
                   borderRadius: BorderRadius.circular(50)),
-              child: Text("${debitos[index].status}"),
+              child: Text(debitos[index].status),
             ),
             onTap: () {
               Navigator.push(

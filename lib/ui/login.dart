@@ -1,5 +1,4 @@
 //todo
-//exibe 00.0 por padrão na matricula
 //quando o cpf não existe exibir erro apropriado,  está dandoo erro de range
 //erro de timeout
 
@@ -13,8 +12,6 @@ import 'package:caesa/models/cliente.dart';
 import 'package:caesa/functions/dialogs.dart';
 import 'package:caesa/functions/matriculaController.dart';
 import 'package:caesa/functions/mod11.dart';
-
-import 'package:caesa/functions/dateConvert.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -200,13 +197,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                             }
                           },
                         ),
-                        FlatButton(
-                          child: Text("hm"),
-                          onPressed: () {
-                            print(dateConvert("201810"));
-                            print(dateConvert("20190129"));
-                          },
-                        )
                       ],
                     )),
 
