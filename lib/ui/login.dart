@@ -1,29 +1,22 @@
+//todo
+//exibe 00.0 por padrão na matricula
+//quando o cpf não existe exibir erro apropriado,  está dandoo erro de range
+//erro de timeout
+
 import 'package:flutter/material.dart';
-import 'package:caesa/services/api.dart' as api;
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:cpf_cnpj_validator/cpf_validator.dart';
 
+import 'package:caesa/services/api.dart' as api;
 import 'package:caesa/ui/matriculas.dart';
-import 'package:caesa/ui/matriculaController.dart';
 import 'package:caesa/models/cliente.dart';
+import 'package:caesa/functions/dialogs.dart';
+import 'package:caesa/functions/matriculaController.dart';
+import 'package:caesa/functions/mod11.dart';
 
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
-}
-
-int _mod11(String matricula) {
-  List<int> numbers = matricula
-      .split("")
-      .map((number) => int.parse(number, radix: 10))
-      .toList();
-  int modulus = numbers.length + 1;
-  List<int> multiplied = [];
-  for (var i = 0; i < numbers.length; i++) {
-    multiplied.add(numbers[i] * (modulus - i));
-  }
-  int mod = multiplied.reduce((buffer, number) => buffer + number) % 11;
-  return (mod < 2 ? 0 : 11 - mod);
 }
 
 class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
@@ -44,27 +37,27 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
   var matriculaController = MatriculaController();
   bool matriculaIsValid = false;
   String matriculaLimpa;
-  void _validarMatricula(String text) {
-    matriculaIsValid = false;
-    String matricula = text.split('-')[0];
-    //print("matricula $matricula");
-    String dv = text.split('-')[1];
-    //print("dv $dv");
-    int dvCorreto = _mod11(matricula);
-    //print("correto $dvCorreto");
-    if (int.parse(dv) == dvCorreto) {
-      matriculaIsValid = true;
-      matriculaLimpa = matricula;
-    }
-  }
-  // refatorada
   // void _validarMatricula(String text) {
   //   matriculaIsValid = false;
-  //   if (int.parse(text.split('-')[1]) == _mod11(text.split('-')[0])) {
+  //   String matricula = text.split('-')[0];
+  //   //print("matricula $matricula");
+  //   String dv = text.split('-')[1];
+  //   //print("dv $dv");
+  //   int dvCorreto = mod11(matricula);
+  //   //print("correto $dvCorreto");
+  //   if (int.parse(dv) == dvCorreto) {
   //     matriculaIsValid = true;
-  //     matriculaLimpa = text.split('-')[0];
+  //     matriculaLimpa = matricula;
   //   }
   // }
+  // refatorada
+  void _validarMatricula(String text) {
+    matriculaIsValid = false;
+    if (int.parse(text.split('-')[1]) == mod11(text.split('-')[0])) {
+      matriculaIsValid = true;
+      matriculaLimpa = text.split('-')[0];
+    }
+  }
 
   @override
   void initState() {
@@ -75,7 +68,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    print(_tabController.index);
     return Scaffold(
       appBar: AppBar(
         title: Text("CAESA - 2ª via"),
@@ -109,7 +101,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: _tabController.index == 0 ? Colors.blue : Colors.grey,
+                                  color: _tabController.index == 0
+                                      ? Colors.blue
+                                      : Colors.grey,
                                   width: 2))),
                     ),
                     onTap: () {
@@ -131,7 +125,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                       decoration: BoxDecoration(
                           border: Border(
                               bottom: BorderSide(
-                                  color: _tabController.index == 1 ? Colors.blue : Colors.grey,
+                                  color: _tabController.index == 1
+                                      ? Colors.blue
+                                      : Colors.grey,
                                   width: 2))),
                     ),
                     onTap: () {
@@ -185,7 +181,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           ),
                           onPressed: () async {
                             if (_matriculaKey.currentState.validate()) {
-                              _loadingDialog();
+                              loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   inscricao: int.parse(matriculaLimpa));
                               if (user != null) {
@@ -197,7 +193,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                             Matriculas(user)));
                               } else {
                                 Navigator.of(context).pop();
-                                _showAvisoLogin();
+                                showAvisoLogin(context);
                               }
                             }
                           },
@@ -238,7 +234,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                           ),
                           onPressed: () async {
                             if (_cpfKey.currentState.validate()) {
-                              _loadingDialog();
+                              loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   cpf: CPFValidator.strip(cpfController.text));
                               if (user != null) {
@@ -250,7 +246,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                             Matriculas(user)));
                               } else {
                                 Navigator.of(context).pop();
-                                _showAvisoLogin();
+                                showAvisoLogin(context);
                               }
                             }
                           },
@@ -263,46 +259,5 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
         ),
       ),
     );
-  }
-
-  _loadingDialog() {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            content: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                CircularProgressIndicator(),
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    "Entrando",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                )
-              ],
-            ),
-          );
-        });
-  }
-
-  _showAvisoLogin() {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text("Erro"),
-            content: Text("Usuario não encontrado"),
-            actions: <Widget>[
-              FlatButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
-          );
-        });
   }
 }
