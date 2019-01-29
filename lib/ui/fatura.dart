@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
+import 'package:caesa/services/barcode.dart';
 
 class Fatura extends StatefulWidget {
-  List<Debito> debitos;
+  Debito debitos;
   
   Fatura(this.debitos);
   _FaturaState createState() => _FaturaState();
 }
 
 class _FaturaState extends State<Fatura> {
-  List<Debito> debitos;
+  Debito debitos;
   @override
   void initState() {
     // TODO: implement initState
@@ -21,7 +22,7 @@ class _FaturaState extends State<Fatura> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${debitos[0].refFaturamento}"),
+        title: Text("${debitos.refFaturamento}"),
         centerTitle: true,
       ),
       body: ListView(
@@ -73,7 +74,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "${debitos[0].volume} m3",
+                "${debitos.volume} m3",
                 style: TextStyle(fontSize: 18),
               ),
             ],
@@ -86,7 +87,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "${debitos[0].dataVencimento}",
+                "${debitos.dataVencimento}",
                 style: TextStyle(fontSize: 18),
               ),
             ],
@@ -99,13 +100,13 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "R\$ ${debitos[0].valorTotal}",
+                "R\$ ${debitos.valorTotal}",
                 style: TextStyle(fontSize: 18),
               ),
             ],
           ),
           Divider(),
-          FlatButton(
+          MaterialButton(
             color: Colors.blue,
             padding: EdgeInsets.all(13),
             //minWidth: double.infinity,
@@ -113,7 +114,12 @@ class _FaturaState extends State<Fatura> {
               "COPIAR CÓDIGO DE BARRAS",
               style: TextStyle(color: Colors.white, fontSize: 15),
             ),
-            onPressed: () {},
+            onPressed: geraCodigo(
+              'copia', 
+              debitos.valorTotal, 
+              debitos.inscricao, 
+              debitos.refFaturamento, 
+              debitos.origem),
           ),
           FlatButton(
             color: Colors.blue,

@@ -7,7 +7,7 @@ import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 import 'package:caesa/models/pagamento.dart';
 
-const baseUrl = 'http://192.168.1.14:3000/api';
+const baseUrl = 'http://192.168.2.204:3000/api';
 int dataAtual = 20180101;
 
 Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {

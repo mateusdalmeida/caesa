@@ -74,7 +74,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
               child: Text("${debitos[index].status}"),
             ),
             onTap:() {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Fatura(debitos)));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>Fatura(debitos[index])));
             },
           ));
         },
