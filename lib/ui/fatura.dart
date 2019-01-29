@@ -114,12 +114,16 @@ class _FaturaState extends State<Fatura> {
               "COPIAR CÓDIGO DE BARRAS",
               style: TextStyle(color: Colors.white, fontSize: 15),
             ),
-            onPressed: geraCodigo(
-              'copia', 
-              debitos.valorTotal, 
-              debitos.inscricao, 
-              debitos.refFaturamento, 
-              debitos.origem),
+            onPressed: (){
+              geraCodigo(
+                'copia', 
+                debitos.valorTotal, 
+                debitos.inscricao, 
+                debitos.refFaturamento, 
+                debitos.origem);
+              //final snackBar = SnackBar(content: Text("Codigo Copiado com Sucesso"));
+              //Scaffold.of(context).showSnackBar(snackBar);
+            },
           ),
           FlatButton(
             color: Colors.blue,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
   geraCodigo(tipoRetorno, valorPagar1, matricula1, mesReferencia1, origem1){
@@ -33,15 +33,9 @@ import 'package:flutter/services.dart';
     
     if (tipoRetorno == 'copia'){
       var codigoCompletoCopia = "$sub1$dv1$sub2$dv2$sub3$dv3$sub4$dv4";
-      // this.clipboard.copy(codigoCompvaroCopia);
-      // var toast = this.toastCtrl.create({
-      //   message: 'Código copiado com sucesso',
-      //   duration: 3000
-      // })
-      // toast.present()
       Clipboard.setData(ClipboardData(text: codigoCompletoCopia));
-      SnackBar(content: Text("Codigo Copiado com Sucesso"));
-      print(codigoCompletoCopia);
+      //SnackBar(content: Text("Codigo Copiado com Sucesso"));
+      //print(codigoCompletoCopia);
       //return codigoCompletoCopia;
     }else if (tipoRetorno == 'boleto'){
       return "$sub1-$dv1 $sub2-$dv2 $sub3-$dv3 $sub4-$dv4";
