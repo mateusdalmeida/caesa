@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:caesa/ui/debitos.dart';
 import 'package:caesa/services/api.dart' as api;
 import 'package:caesa/models/cliente.dart';
+import 'package:caesa/functions/dialogs.dart';
 
 class Matriculas extends StatefulWidget {
-
   List<Cliente> matriculas;
 
   // aqui tu obriga o construtor a ter o parametro matricula, tudo okay
@@ -14,18 +14,15 @@ class Matriculas extends StatefulWidget {
 }
 
 class _MatriculasState extends State<Matriculas> {
-
   // essa é uma classe diferente da de cima, então é necessário declarar aqui também
   List<Cliente> matriculas;
 
   @override
-    void initState() {
-      // TODO: implement initState
-      super.initState();
-      // na inicialização do widget eu pego o valor da matricula da classe de cima com widget.matriculas
-      // o widget. é usado pra pegar os valores da classe que extende statefulwidget
-      matriculas = widget.matriculas;
-    }
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    matriculas = widget.matriculas;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +31,6 @@ class _MatriculasState extends State<Matriculas> {
         title: Text("CAESA - Matriculas"),
         centerTitle: true,
       ),
-      // nao faz sentido ter um futurebuilder aqui, a requisição é a mesma utilizada na tela anterior
       body: _createMatriculasList(context, matriculas),
     );
   }
@@ -65,9 +61,12 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
                 "${clientes[index].endereco}, ${clientes[index].numeroPorta} \n${clientes[index].categoria}"),
             isThreeLine: true,
             onTap: () async {
+              loadingDialog(context);
               var debitos = await api.getDebitos(clientes[index].inscricao);
               if (debitos.length > 0) {
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Debitos(debitos)));
+                Navigator.of(context).pop();
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Debitos(debitos)));
               }
             },
           ));
@@ -75,7 +74,7 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(),
+            child: Divider(height: 0,),
           );
         },
       )

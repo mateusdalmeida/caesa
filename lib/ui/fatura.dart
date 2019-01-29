@@ -1,3 +1,9 @@
+//ToDo
+//intl
+//receber dados sobre cliente
+//sncakbar codigo copiado
+//se pago não exibir os botoes
+
 import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/services/barcode.dart';
@@ -40,7 +46,7 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           Row(
             children: <Widget>[
               Text(
@@ -53,7 +59,7 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           Row(
             children: <Widget>[
               Text(
@@ -66,7 +72,7 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           Row(
             children: <Widget>[
               Text(
@@ -74,12 +80,12 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "${debitos.volume} m3",
+                "${debitos.volume} m³",
                 style: TextStyle(fontSize: 18),
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           Row(
             children: <Widget>[
               Text(
@@ -92,7 +98,7 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           Row(
             children: <Widget>[
               Text(
@@ -100,12 +106,12 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "R\$ ${debitos.valorTotal}",
+                "R\$ ${debitos.valorTotal.toStringAsFixed(2)}",
                 style: TextStyle(fontSize: 18),
               ),
             ],
           ),
-          Divider(),
+          Divider(color: Colors.transparent,),
           MaterialButton(
             color: Colors.blue,
             padding: EdgeInsets.all(13),

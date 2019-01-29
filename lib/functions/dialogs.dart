@@ -12,7 +12,7 @@ loadingDialog(context) {
               Padding(
                 padding: EdgeInsets.only(left: 10.0),
                 child: Text(
-                  "Entrando",
+                  "  Carregando",
                   style: TextStyle(fontSize: 20),
                 ),
               )

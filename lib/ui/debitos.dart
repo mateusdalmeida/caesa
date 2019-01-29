@@ -1,13 +1,14 @@
+//ToDo
+//intl
+
 import 'package:flutter/material.dart';
 
-//mport 'package:caesa/services/api.dart' as api;
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/ui/fatura.dart';
 
 class Debitos extends StatefulWidget {
   List<Debito> debitos;
 
-  // aqui tu obriga o construtor a ter o parametro matricula, tudo okay
   Debitos(this.debitos);
 
   _DebitosState createState() => _DebitosState();
@@ -21,8 +22,6 @@ class _DebitosState extends State<Debitos> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // na inicialização do widget eu pego o valor da matricula da classe de cima com widget.matriculas
-    // o widget. é usado pra pegar os valores da classe que extende statefulwidget
     debitos = widget.debitos;
   }
 
@@ -30,10 +29,9 @@ class _DebitosState extends State<Debitos> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CAESA - Faturas"),
+        title: Text("CAESA - Debitos"),
         centerTitle: true,
       ),
-      // nao faz sentido ter um futurebuilder aqui, a requisição é a mesma utilizada na tela anterior
       body: _createDebitosList(context, debitos),
     );
   }
@@ -58,30 +56,36 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
         itemCount: debitos.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            child: ListTile(
+              child: ListTile(
             title: Text("${debitos[index].refFaturamento}"),
             subtitle: Text(
-                "Vencimento: ${debitos[index].dataVencimento}\nR\$ ${debitos[index].valorTotal}"),
+                "Vencimento: ${debitos[index].dataVencimento}\nR\$ ${debitos[index].valorTotal.toStringAsFixed(2)}"),
             isThreeLine: true,
             trailing: Container(
               padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
               decoration: BoxDecoration(
-                color: debitos[index].status == "Pagar" ? Colors.yellow : debitos[index].status == "Pago"? Colors.green : Colors.red,
-                borderRadius: BorderRadius.circular(50)
-                
-              ),
-              
+                  color: debitos[index].status == "Pagar"
+                      ? Colors.yellow
+                      : debitos[index].status == "Pago"
+                          ? Colors.green
+                          : Colors.red,
+                  borderRadius: BorderRadius.circular(50)),
               child: Text("${debitos[index].status}"),
             ),
-            onTap:() {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>Fatura(debitos[index])));
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Fatura(debitos[index])));
             },
           ));
         },
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(),
+            child: Divider(
+              height: 0,
+            ),
           );
         },
       )
