@@ -182,17 +182,24 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   inscricao: int.parse(matriculaLimpa));
-                                  print(user);
-                              if (user.length > 0) {
-                                Navigator.of(context).pop();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Matriculas(user)));
+                              print(user);
+                              // verifica se o user não é null
+                              if (user != null) {
+                                if (user.length > 0) {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Matriculas(user)));
+                                } else {
+                                  Navigator.of(context).pop();
+                                  showAvisoLogin(context);
+                                }
                               } else {
+                                // se o user for null, entra aqui, isso significa que deu timeout
                                 Navigator.of(context).pop();
-                                showAvisoLogin(context);
+                                print("Erro de timeout");
                               }
                             }
                           },
@@ -236,16 +243,22 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   cpf: CPFValidator.strip(cpfController.text));
-                              if (user.length > 0) {
-                                Navigator.of(context).pop();
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            Matriculas(user)));
+                              if (user != null) {
+                                if (user.length > 0) {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              Matriculas(user)));
+                                } else {
+                                  Navigator.of(context).pop();
+                                  showAvisoLogin(context);
+                                }
                               } else {
+                                // se o user for null, entra aqui, isso significa que deu timeout
                                 Navigator.of(context).pop();
-                                showAvisoLogin(context);
+                                print("Erro de timeout");
                               }
                             }
                           },
