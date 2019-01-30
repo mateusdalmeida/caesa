@@ -63,10 +63,18 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
             onTap: () async {
               loadingDialog(context);
               var debitos = await api.getDebitos(clientes[index].inscricao);
-              if (debitos.length > 0) {
+              if (debitos != null) {
+                if (debitos.length > 0) {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              Debitos(debitos, clientes[index])));
+                }
+              }else {
                 Navigator.of(context).pop();
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Debitos(debitos, clientes[index])));
+                print("Erro de timeout");
               }
             },
           ));
@@ -74,7 +82,9 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
         separatorBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Divider(height: 0,),
+            child: Divider(
+              height: 0,
+            ),
           );
         },
       )

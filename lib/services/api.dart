@@ -64,7 +64,17 @@ Future<List<Cliente>> getClientes({int inscricao, String cpf}) async {
 }
 
 Future<List<Debito>> getDebitos(matricula) async {
-  var response = await http.get("$baseUrl/debitos/dados/$matricula");
+  var response;
+  int secondsTimeout = 3;
+  try {
+    response = await http
+        .get("$baseUrl/debitos/dados/$matricula")
+        .timeout(Duration(seconds: secondsTimeout));
+  } on TimeoutException catch (e) {
+    print(e);
+    // Ao dar timeout, o Future retorna null
+    return null;
+  }
 
   List<Debito> debitos = new List();
 
