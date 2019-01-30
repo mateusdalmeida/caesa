@@ -25,113 +25,113 @@ class _FaturaState extends State<Fatura> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text(dateConvert(debitos.refFaturamento.toString())),
-        centerTitle: true,
-      ),
-      body: ListView(
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(16),
-        children: <Widget>[
-          Row(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          title: Text(dateConvert(debitos.refFaturamento.toString())),
+          centerTitle: true,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
             children: <Widget>[
-              Text(
-                "Nome: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Nome: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    widget.cliente.nome,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
               ),
-              Text(
-                widget.cliente.nome,
-                style: TextStyle(fontSize: 18),
+              Divider(
+                color: Colors.transparent,
               ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Endereço: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    "${widget.cliente.endereco} - ${widget.cliente.numeroPorta}",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Localidade: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    widget.cliente.cidade,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Vol. Faturado: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    "${debitos.volume} m³",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Data de Vencimento: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    dateConvert(debitos.dataVencimento.toString()),
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    "Total: ",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  Text(
+                    "R\$ ${debitos.valorTotal.toStringAsFixed(2)}",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.transparent,
+              ),
+              debitos.status == "Pago"
+                  ? Center(
+                      child: Text("FATURA PAGA"),
+                    )
+                  : botoes()
             ],
           ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Endereço: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                "${widget.cliente.endereco} - ${widget.cliente.numeroPorta}",
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Localidade: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                widget.cliente.cidade,
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Vol. Faturado: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                "${debitos.volume} m³",
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Data de Vencimento: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                dateConvert(debitos.dataVencimento.toString()),
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          Row(
-            children: <Widget>[
-              Text(
-                "Total: ",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                "R\$ ${debitos.valorTotal.toStringAsFixed(2)}",
-                style: TextStyle(fontSize: 18),
-              ),
-            ],
-          ),
-          Divider(
-            color: Colors.transparent,
-          ),
-          debitos.status == "Pago"
-              ? Center(
-                  child: Text("FATURA PAGA"),
-                )
-              : botoes()
-        ],
-      ),
-    );
+        ));
   }
 
   Widget botoes() {

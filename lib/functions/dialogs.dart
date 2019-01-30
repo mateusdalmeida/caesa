@@ -40,3 +40,23 @@ showAvisoLogin(context) {
         );
       });
 }
+
+
+timeoutDialog(context) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text("Erro"),
+          content: Text("O Servidor não está respondendo"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("Ok"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      });
+}

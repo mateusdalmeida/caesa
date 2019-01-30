@@ -74,7 +74,7 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
                 }
               }else {
                 Navigator.of(context).pop();
-                print("Erro de timeout");
+                timeoutDialog(context);
               }
             },
           ));

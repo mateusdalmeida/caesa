@@ -1,6 +1,3 @@
-//ToDo
-//erro de timeout
-
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:cpf_cnpj_validator/cpf_validator.dart';
@@ -182,7 +179,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   inscricao: int.parse(matriculaLimpa));
-                              print(user);
                               // verifica se o user não é null
                               if (user != null) {
                                 if (user.length > 0) {
@@ -199,7 +195,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               } else {
                                 // se o user for null, entra aqui, isso significa que deu timeout
                                 Navigator.of(context).pop();
-                                print("Erro de timeout");
+                                timeoutDialog(context);
                               }
                             }
                           },
@@ -258,7 +254,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               } else {
                                 // se o user for null, entra aqui, isso significa que deu timeout
                                 Navigator.of(context).pop();
-                                print("Erro de timeout");
+                                timeoutDialog(context);
                               }
                             }
                           },
