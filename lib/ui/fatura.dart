@@ -31,6 +31,7 @@ class _FaturaState extends State<Fatura> {
         centerTitle: true,
       ),
       body: ListView(
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.all(16),
         children: <Widget>[
           Row(
@@ -127,37 +128,42 @@ class _FaturaState extends State<Fatura> {
               ? Center(
                   child: Text("FATURA PAGA"),
                 )
-              : FlatButton(
-                  color: Colors.blue,
-                  padding: EdgeInsets.all(13),
-                  //minWidth: double.infinity,
-                  child: Text(
-                    "COPIAR CÓDIGO DE BARRAS",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-
-                  onPressed: () {
-                    geraCodigo('copia', debitos.valorTotal, debitos.inscricao,
-                        debitos.refFaturamento, debitos.origem);
-                    final snackBar =
-                        SnackBar(content: Text("Codigo Copiado com Sucesso"));
-                    _scaffoldKey.currentState.showSnackBar(snackBar);
-                  },
-                ),
-          debitos.status != "Pago"
-              ? FlatButton(
-                  color: Colors.blue,
-                  padding: EdgeInsets.all(13),
-                  //minWidth: double.infinity,
-                  child: Text(
-                    "GERAR BOLETO",
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                  onPressed: () {},
-                )
-              : SizedBox()
+              : botoes()
         ],
       ),
+    );
+  }
+
+  Widget botoes() {
+    return ListView(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      children: <Widget>[
+        FlatButton(
+          color: Colors.blue,
+          padding: EdgeInsets.all(13),
+          child: Text(
+            "COPIAR CÓDIGO DE BARRAS",
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          onPressed: () {
+            geraCodigo('copia', debitos.valorTotal, debitos.inscricao,
+                debitos.refFaturamento, debitos.origem);
+            final snackBar =
+                SnackBar(content: Text("Codigo Copiado com Sucesso"));
+            _scaffoldKey.currentState.showSnackBar(snackBar);
+          },
+        ),
+        FlatButton(
+          color: Colors.blue,
+          padding: EdgeInsets.all(13),
+          child: Text(
+            "GERAR BOLETO",
+            style: TextStyle(color: Colors.white, fontSize: 15),
+          ),
+          onPressed: () {},
+        )
+      ],
     );
   }
 }
