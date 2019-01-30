@@ -66,7 +66,7 @@ Widget _createMatriculasList(BuildContext context, List<Cliente> clientes) {
               if (debitos.length > 0) {
                 Navigator.of(context).pop();
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => Debitos(debitos)));
+                    MaterialPageRoute(builder: (context) => Debitos(debitos, clientes[index])));
               }
             },
           ));

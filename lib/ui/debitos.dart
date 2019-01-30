@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 
 import 'package:caesa/models/debito.dart';
+import 'package:caesa/models/cliente.dart';
 import 'package:caesa/ui/fatura.dart';
 import 'package:caesa/functions/dateConvert.dart';
 
 class Debitos extends StatefulWidget {
   List<Debito> debitos;
+  Cliente cliente;
 
-  Debitos(this.debitos);
+  Debitos(this.debitos, this.cliente);
 
   _DebitosState createState() => _DebitosState();
 }
@@ -30,12 +32,12 @@ class _DebitosState extends State<Debitos> {
         title: Text("CAESA - Debitos"),
         centerTitle: true,
       ),
-      body: _createDebitosList(context, debitos),
+      body: _createDebitosList(context, debitos, widget.cliente),
     );
   }
 }
 
-Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
+Widget _createDebitosList(BuildContext context, List<Debito> debitos, Cliente cliente) {
   return SingleChildScrollView(
       child: Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +76,7 @@ Widget _createDebitosList(BuildContext context, List<Debito> debitos) {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => Fatura(debitos[index])));
+                      builder: (context) => Fatura(debitos[index], cliente)));
             },
           ));
         },

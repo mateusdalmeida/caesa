@@ -1,17 +1,18 @@
 //ToDo
-//receber dados sobre cliente
 //sncakbar codigo copiado
 //se pago não exibir os botoes
 
 import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
+import 'package:caesa/models/cliente.dart';
 import 'package:caesa/services/barcode.dart';
 import 'package:caesa/functions/dateConvert.dart';
 
 class Fatura extends StatefulWidget {
   Debito debitos;
+  Cliente cliente;
   
-  Fatura(this.debitos);
+  Fatura(this.debitos, this.cliente);
   _FaturaState createState() => _FaturaState();
 }
 
@@ -41,7 +42,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "Fulano",
+                widget.cliente.nome,
                 style: TextStyle(fontSize: 18),
               ),
             ],
@@ -54,7 +55,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "Fulano",
+                "${widget.cliente.endereco} - ${widget.cliente.numeroPorta}",
                 style: TextStyle(fontSize: 18),
               ),
             ],
@@ -67,7 +68,7 @@ class _FaturaState extends State<Fatura> {
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "Fulano",
+                widget.cliente.cidade,
                 style: TextStyle(fontSize: 18),
               ),
             ],

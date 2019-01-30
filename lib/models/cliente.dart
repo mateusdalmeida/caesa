@@ -37,7 +37,7 @@ class Cliente {
         break;
     }
 
-    switch (json['CDG_CATEGORIA']){
+    switch (json['CDG_CIDADE']){
       case 201:
         json['CDG_CIDADE'] = 'Macapá';
         break;
