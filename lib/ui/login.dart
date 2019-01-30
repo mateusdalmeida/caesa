@@ -1,5 +1,4 @@
-//todo
-//quando o cpf não existe exibir erro apropriado,  está dandoo erro de range
+//ToDo
 //erro de timeout
 
 import 'package:flutter/material.dart';
@@ -183,7 +182,8 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   inscricao: int.parse(matriculaLimpa));
-                              if (user != null) {
+                                  print(user);
+                              if (user.length > 0) {
                                 Navigator.of(context).pop();
                                 Navigator.push(
                                     context,
@@ -236,7 +236,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               loadingDialog(context);
                               List<Cliente> user = await api.getClientes(
                                   cpf: CPFValidator.strip(cpfController.text));
-                              if (user != null) {
+                              if (user.length > 0) {
                                 Navigator.of(context).pop();
                                 Navigator.push(
                                     context,
