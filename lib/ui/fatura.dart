@@ -1,7 +1,3 @@
-//ToDo
-//sncakbar codigo copiado
-//se pago não exibir os botoes
-
 import 'package:flutter/material.dart';
 import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
@@ -11,23 +7,25 @@ import 'package:caesa/functions/dateConvert.dart';
 class Fatura extends StatefulWidget {
   Debito debitos;
   Cliente cliente;
-  
+
   Fatura(this.debitos, this.cliente);
   _FaturaState createState() => _FaturaState();
 }
 
 class _FaturaState extends State<Fatura> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   Debito debitos;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     debitos = widget.debitos;
-
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         title: Text(dateConvert(debitos.refFaturamento.toString())),
         centerTitle: true,
@@ -47,7 +45,9 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
+          Divider(
+            color: Colors.transparent,
+          ),
           Row(
             children: <Widget>[
               Text(
@@ -60,7 +60,9 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
+          Divider(
+            color: Colors.transparent,
+          ),
           Row(
             children: <Widget>[
               Text(
@@ -73,7 +75,9 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
+          Divider(
+            color: Colors.transparent,
+          ),
           Row(
             children: <Widget>[
               Text(
@@ -86,7 +90,9 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
+          Divider(
+            color: Colors.transparent,
+          ),
           Row(
             children: <Widget>[
               Text(
@@ -99,7 +105,9 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
+          Divider(
+            color: Colors.transparent,
+          ),
           Row(
             children: <Widget>[
               Text(
@@ -112,39 +120,44 @@ class _FaturaState extends State<Fatura> {
               ),
             ],
           ),
-          Divider(color: Colors.transparent,),
-          MaterialButton(
-            color: Colors.blue,
-            padding: EdgeInsets.all(13),
-            //minWidth: double.infinity,
-            child: Text(
-              "COPIAR CÓDIGO DE BARRAS",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-            onPressed: (){
-              geraCodigo(
-                'copia', 
-                debitos.valorTotal, 
-                debitos.inscricao, 
-                debitos.refFaturamento, 
-                debitos.origem);
-              //final snackBar = SnackBar(content: Text("Codigo Copiado com Sucesso"));
-              //Scaffold.of(context).showSnackBar(snackBar);
-            },
+          Divider(
+            color: Colors.transparent,
           ),
-          FlatButton(
-            color: Colors.blue,
-            padding: EdgeInsets.all(13),
-            //minWidth: double.infinity,
-            child: Text(
-              "GERAR BOLETO",
-              style: TextStyle(color: Colors.white, fontSize: 15),
-            ),
-            onPressed: () {},
-          ),
+          debitos.status == "Pago"
+              ? Center(
+                  child: Text("FATURA PAGA"),
+                )
+              : FlatButton(
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(13),
+                  //minWidth: double.infinity,
+                  child: Text(
+                    "COPIAR CÓDIGO DE BARRAS",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+
+                  onPressed: () {
+                    geraCodigo('copia', debitos.valorTotal, debitos.inscricao,
+                        debitos.refFaturamento, debitos.origem);
+                    final snackBar =
+                        SnackBar(content: Text("Codigo Copiado com Sucesso"));
+                    _scaffoldKey.currentState.showSnackBar(snackBar);
+                  },
+                ),
+          debitos.status != "Pago"
+              ? FlatButton(
+                  color: Colors.blue,
+                  padding: EdgeInsets.all(13),
+                  //minWidth: double.infinity,
+                  child: Text(
+                    "GERAR BOLETO",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                  onPressed: () {},
+                )
+              : SizedBox()
         ],
       ),
-
     );
   }
 }
