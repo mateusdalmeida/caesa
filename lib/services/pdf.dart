@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:open_file/open_file.dart';
+//import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'dart:async';
 
-void teste() async{
+void teste() async {
   final pdf = PdfDocument(deflate: zlib.encode);
   final page = PdfPage(pdf, pageFormat: PdfPageFormat.letter);
   final g = page.getGraphics();
@@ -21,9 +23,13 @@ void teste() async{
 
   //var file = File('example.pdf');
   //file.writeAsBytesSync(pdf.save());
-  
+
   Directory tempDir = await getTemporaryDirectory();
-String tempPath = tempDir.path;
-var file = File("$tempPath/file.pdf");
-await file.writeAsBytes(pdf.save());
+  String tempPath = tempDir.path;
+  var file = File("$tempPath/file.pdf");
+  await file.writeAsBytes(pdf.save());
+  await OpenFile.open("$tempPath/file.pdf");
+  //print("file://$tempPath/file.pdf");
+  //await launch("content://$tempPath/file.pdf");
+  print("hm");
 }

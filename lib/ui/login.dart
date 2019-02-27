@@ -104,6 +104,7 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                     ),
                     onTap: () {
                       teste();
+                      print("hm");
                       _tabController.animateTo(0);
                       setState(() {});
                     },
