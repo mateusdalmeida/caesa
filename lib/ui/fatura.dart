@@ -3,6 +3,7 @@ import 'package:caesa/models/debito.dart';
 import 'package:caesa/models/cliente.dart';
 import 'package:caesa/services/barcode.dart';
 import 'package:caesa/functions/dateConvert.dart';
+import 'package:caesa/services/pdf.dart';
 
 class Fatura extends StatefulWidget {
   Debito debitos;
@@ -124,11 +125,16 @@ class _FaturaState extends State<Fatura> {
               Divider(
                 color: Colors.transparent,
               ),
-              debitos.status == "Pago"
-                  ? Center(
-                      child: Text("FATURA PAGA"),
-                    )
-                  : botoes()
+              Visibility(
+                child: Text("FATURA PAGA"),
+                replacement: botoes(),
+                visible: debitos.status == "Pago",
+              )
+              // debitos.status == "Pago"
+              //     ? Center(
+              //         child: Text("FATURA PAGA"),
+              //       )
+              //     : botoes()
             ],
           ),
         ));
@@ -161,7 +167,11 @@ class _FaturaState extends State<Fatura> {
             "GERAR BOLETO",
             style: TextStyle(color: Colors.white, fontSize: 15),
           ),
-          onPressed: () {},
+          onPressed: () {
+            String digitavel = geraCodigo('boleto', debitos.valorTotal, debitos.inscricao,
+                debitos.refFaturamento, debitos.origem);
+            boletoPDF(widget.debitos, widget.cliente, digitavel);
+          },
         )
       ],
     );

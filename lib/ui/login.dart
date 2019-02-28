@@ -8,7 +8,6 @@ import 'package:caesa/models/cliente.dart';
 import 'package:caesa/functions/dialogs.dart';
 import 'package:caesa/functions/matriculaController.dart';
 import 'package:caesa/functions/mod11.dart';
-import 'package:caesa/services/pdf.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -103,8 +102,6 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                                   width: 2))),
                     ),
                     onTap: () {
-                      teste();
-                      print("hm");
                       _tabController.animateTo(0);
                       setState(() {});
                     },
